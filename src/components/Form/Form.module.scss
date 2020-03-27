@@ -1,0 +1,96 @@
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 15px 15px 0;
+  max-width: 333px;
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(black , .2), 0 -1px 0px rgba(black , .02);
+}
+
+.search {
+  line-height: 48px;
+  outline: none;
+  font-size: 15px;
+  padding: 0 16px;
+  flex: 1;
+  border: none;
+  background-color: white;
+  color: black;
+}
+
+.submit {
+  position: relative;
+  width: 48px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  padding: 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: -1px;
+    width: 1px;
+    background-color: #ddd;
+  }
+}
+
+.searchIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  visibility: visible;
+  transition-duration: .25s;
+  transition-property: opacity, visibility;
+  transition-timing-function: ease;
+
+  .loadingGiphy &,
+  .loadingBackground & {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+    fill: black;
+  }
+}
+
+.loadingSpinner {
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-10px, -10px);
+  opacity: 0;
+  visibility: hidden;
+  transition-duration: .25s;
+  transition-property: opacity, visibility;
+  transition-timing-function: ease;
+
+  .loadingGiphy &,
+  .loadingBackground & {
+    opacity: 1;
+    visibility: visible;
+  }
+}

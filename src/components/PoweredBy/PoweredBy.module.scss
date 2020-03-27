@@ -1,0 +1,11 @@
+.root {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  user-select: none;
+  pointer-events: none;
+}
+
+.image {
+  display: block;
+}

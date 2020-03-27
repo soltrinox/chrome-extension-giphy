@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>New tab</title>
+    <link rel="shortcut icon" href="data:;base64,iVBORw0KGgo=">
+    <link rel="dns-prefetch" href="https://api.giphy.com/">
+    <link href="https://api.giphy.com/" rel="preconnect" crossorigin>
+    <link rel="dns-prefetch" href="https://media3.giphy.com/">
+    <link href="https://media3.giphy.com/" rel="preconnect" crossorigin>
+    <style>
+      @keyframes loading {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-height: 100%;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        margin: 0;
+        background-color: black;
+        color: white;
+        margin: 0;
+        overflow: hidden;
+        transform: translate3d(0,0,0);
+        backface-visibility: hidden;
+      }
+
+      #root {
+        height: 100vh;
+      }
+
+      #root .loading {
+        position: fixed;
+        width: 40px;
+        height: 40px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-20px, -20px);
+      }
+
+      #root .loading__spinner {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: 50%;
+        animation: loading .5s infinite linear;
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        border-left-color: white;
+      }
+
+      #root .loading__spinner::after {
+        border-radius: inherit;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <main id="root">
+      <div class="loading">
+        <div class="loading__spinner"></div>
+      </div>
+    </main>
+  </body>
+</html>

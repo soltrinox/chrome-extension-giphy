@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "outDir": "./dist",
+    "paths": {
+      "redux": [
+        "node_modules/redux"
+      ]
+    },
+    "module": "commonjs",
+    "target": "es2015",
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx": "react"
+  },
+  "include": [
+    ".",
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

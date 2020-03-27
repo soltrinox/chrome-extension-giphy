@@ -1,0 +1,15 @@
+{
+  "name": "GIPHY - New GIF on every new tab",
+  "description": "Personal and new GIF every time you open a new tab.",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "icons": {
+    "16": "16x16.png",
+    "48": "48x48.png",
+    "128": "128x128.png"
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "minimum_chrome_version": "54"
+}
