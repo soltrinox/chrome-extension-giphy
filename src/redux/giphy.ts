@@ -1,13 +1,11 @@
 import { createSelector } from 'reselect';
-import {
-  switchMap,
-  map,
-  catchError,
-  timeout
-} from 'rxjs/operators';
+import { switchMap, map, catchError, timeout } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
-import { ofType, Epic, combineEpics } from 'redux-observable';
+import { ofType, Epic } from 'redux-observable';
 import { of } from 'rxjs';
+
+import { RootState } from 'redux/reducers';
+import { GIFObject, MetaObject, GiphyResponse } from 'types';
 
 // Constants
 const SET_LOADING = 'giphy/SET_LOADING';
@@ -16,41 +14,31 @@ const SET_TAG = 'giphy/SET_TAG';
 const SET_DATA = 'giphy/SET_DATA';
 
 // Types
-interface Action {
+export interface GiphyAction {
   readonly type: string;
-  readonly payload?: any;
+  readonly payload?: any; // 🙈
 }
 
-interface State {
+export interface GiphyState {
   readonly data: {
-    title?: string,
-    images?: {
-      original: {
-        webp: string
-      }
-    }
+    data?: GIFObject;
+    meta?: MetaObject;
   };
   readonly error: boolean;
   readonly loading: boolean;
 }
 
 // Selectors
-export const selectGiphy = (state: { giphy: State }) => state.giphy;
+export const selectGiphy = (state: { giphy: GiphyState }) => state.giphy;
 
 export const selectLoading = createSelector(
   [selectGiphy],
   ({ loading }) => loading
 );
 
-export const selectError = createSelector(
-  [selectGiphy],
-  ({ error }) => error
-);
+export const selectError = createSelector([selectGiphy], ({ error }) => error);
 
-export const selectData = createSelector(
-  [selectGiphy],
-  ({ data }) => data
-);
+export const selectData = createSelector([selectGiphy], ({ data }) => data);
 
 // Actions
 export const setLoading = (loading: boolean) => ({
@@ -58,9 +46,8 @@ export const setLoading = (loading: boolean) => ({
   payload: loading
 });
 
-export const setError = (error: boolean) => ({
-  type: SET_ERROR,
-  payload: error
+export const setError = () => ({
+  type: SET_ERROR
 });
 
 export const setTag = (tag: string) => ({
@@ -68,7 +55,7 @@ export const setTag = (tag: string) => ({
   payload: tag
 });
 
-export const setData = (response: object | unknown) => ({
+export const setData = (response: GiphyResponse) => ({
   type: SET_DATA,
   payload: response
 });
@@ -80,7 +67,7 @@ const initialState = {
   data: {}
 };
 
-export default (state: State = initialState, action: Action) => {
+export default (state: GiphyState = initialState, action: GiphyAction) => {
   switch (action.type) {
     case SET_TAG:
       return {
@@ -96,15 +83,15 @@ export default (state: State = initialState, action: Action) => {
     case SET_ERROR:
       return {
         ...state,
-        loading: action.payload ? false : state.loading,
-        error: action.payload,
+        loading: false,
+        error: true,
         data: initialState.data
       };
     case SET_DATA:
       return {
         ...state,
         loading: false,
-        data: action.payload.data
+        data: action.payload
       };
     default:
       return state;
@@ -112,17 +99,20 @@ export default (state: State = initialState, action: Action) => {
 };
 
 // Epics
-const setTagEpic: Epic<Action> = (action$) => action$.pipe(
-  ofType(SET_TAG),
-  switchMap((action: Action) => ajax.getJSON(
-    `https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_API_KEY}&tag=${action.payload}`
-  ).pipe(
-    timeout(10000),
-    map((response) => setData(response)),
-    catchError(() => of(setError(true)))
-  ))
-);
+const setTagEpic: Epic<GiphyAction, GiphyAction, RootState> = (action$) =>
+  action$.pipe(
+    ofType(SET_TAG),
+    switchMap((action) =>
+      ajax
+        .getJSON<GiphyResponse>(
+          `https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_API_KEY}&tag=${action.payload}`
+        )
+        .pipe(
+          timeout(10000),
+          map((response) => setData(response)),
+          catchError(() => of(setError()))
+        )
+    )
+  );
 
-export const giphyEpics = combineEpics(
-  setTagEpic
-);
+export const giphyEpics = [setTagEpic];

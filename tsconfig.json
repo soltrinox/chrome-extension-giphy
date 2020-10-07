@@ -1,20 +1,31 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
-    "outDir": "./dist",
+    "baseUrl": "src",
+    "outDir": "dist",
+    "target": "es6",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "paths": {
       "redux": [
         "node_modules/redux"
       ]
     },
-    "module": "commonjs",
-    "target": "es2015",
-    "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "jsx": "react"
   },
   "include": [
-    ".",
     "src"
   ],
   "exclude": [

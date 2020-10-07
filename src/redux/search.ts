@@ -4,22 +4,19 @@ import { createSelector } from 'reselect';
 const SET_QUERY = 'search/SET_QUERY';
 
 // Types
-interface Action {
+export interface SearchAction {
   readonly type: string;
   readonly payload?: any;
 }
 
-interface State {
+export interface SearchState {
   readonly query: string;
 }
 
 // Selectors
-export const selectSearch = (state: { search: State }) => state.search;
+export const selectSearch = (state: { search: SearchState }) => state.search;
 
-export const selectQuery = createSelector(
-  [selectSearch],
-  ({ query }) => query
-);
+export const selectQuery = createSelector([selectSearch], ({ query }) => query);
 
 // Actions
 export const setQuery = (query: string) => ({
@@ -32,7 +29,7 @@ const initialState = {
   query: 'kitten'
 };
 
-export default (state: State = initialState, action: Action) => {
+export default (state: SearchState = initialState, action: SearchAction) => {
   switch (action.type) {
     case SET_QUERY:
       return {

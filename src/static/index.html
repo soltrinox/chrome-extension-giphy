@@ -10,10 +10,13 @@
     <link rel="dns-prefetch" href="https://media3.giphy.com/">
     <link href="https://media3.giphy.com/" rel="preconnect" crossorigin>
     <style>
+      /* stylelint-disable */
+
       @keyframes loading {
         0% {
           transform: rotate(0deg);
         }
+
         100% {
           transform: rotate(360deg);
         }
@@ -33,11 +36,11 @@
 
       body {
         margin: 0;
-        background-color: black;
-        color: white;
+        background-color: #000;
+        color: #fff;
         margin: 0;
         overflow: hidden;
-        transform: translate3d(0,0,0);
+        transform: translate3d(0, 0, 0);
         backface-visibility: hidden;
       }
 
@@ -61,9 +64,9 @@
         bottom: 0;
         left: 0;
         border-radius: 50%;
-        animation: loading .5s infinite linear;
+        animation: loading 0.5s infinite linear;
         border: 2px solid rgba(255, 255, 255, 0.25);
-        border-left-color: white;
+        border-left-color: #fff;
       }
 
       #root .loading__spinner::after {

@@ -1,7 +1,7 @@
 const path = require('path');
 const ip = require('ip');
 const chalk = require('chalk');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 const {
@@ -34,7 +34,11 @@ module.exports = merge(CONFIG, {
     stats: 'minimal',
     after: () => {
       console.clear();
-      console.log(`${chalk.blue('ℹ ')}${chalk.gray('｢wds｣')}: Access on your network at http://${ip.address()}:${DEV_PORT}`);
+      console.log(
+        `${chalk.blue('ℹ ')}${chalk.gray(
+          '｢wds｣'
+        )}: Access on your network at http://${ip.address()}:${DEV_PORT}`
+      );
     }
   },
   module: {

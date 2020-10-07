@@ -1,6 +1,6 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
@@ -42,10 +42,12 @@ module.exports = merge(CONFIG, {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new CopyPlugin([
-      path.resolve(STATIC_PATH, 'manifest.json'),
-      path.resolve(STATIC_PATH, 'icons')
-    ]),
+    new CopyPlugin({
+      patterns: [
+        path.resolve(STATIC_PATH, 'manifest.json'),
+        path.resolve(STATIC_PATH, 'icons')
+      ]
+    }),
     new HtmlWebPackPlugin({
       template: path.resolve(STATIC_PATH, 'index.html'),
       chunksSortMode: 'none',

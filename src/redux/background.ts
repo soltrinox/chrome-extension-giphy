@@ -4,17 +4,18 @@ import { createSelector } from 'reselect';
 const SET_LOADING = 'background/SET_LOADING';
 
 // Types
-interface Action {
+export interface BackgroundAction {
   readonly type: string;
-  readonly payload?: any;
+  readonly payload?: any; // 🙈
 }
 
-interface State {
+export interface BackgroundState {
   readonly loading: boolean;
 }
 
 // Selectors
-export const selectBackground = (state: { background: State }) => state.background;
+export const selectBackground = (state: { background: BackgroundState }) =>
+  state.background;
 
 export const selectLoading = createSelector(
   [selectBackground],
@@ -32,7 +33,10 @@ const initialState = {
   loading: true
 };
 
-export default (state: State = initialState, action: Action) => {
+export default (
+  state: BackgroundState = initialState,
+  action: BackgroundAction
+) => {
   switch (action.type) {
     case SET_LOADING:
       return {

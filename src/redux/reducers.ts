@@ -1,4 +1,4 @@
-import giphy, { GiphyState, giphyEpics } from './giphy';
+import giphy, { GiphyState } from './giphy';
 import search, { SearchState } from './search';
 import background, { BackgroundState } from './background';
 
@@ -12,8 +12,4 @@ export const reducers = {
   giphy,
   search,
   background
-};
-
-export const epics = {
-  giphyEpics
 };

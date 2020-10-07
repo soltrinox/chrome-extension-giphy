@@ -1,17 +1,13 @@
-import {
-  createStore,
-  combineReducers,
-  applyMiddleware,
-  compose
-} from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { combineEpics, createEpicMiddleware } from 'redux-observable';
+import { createEpicMiddleware } from 'redux-observable';
 
-import { reducers, epics } from '.';
+import { isProduction } from 'utils';
+import { reducers } from 'redux/reducers';
+import { epics } from 'redux/epics';
 
 const epicMiddleware = createEpicMiddleware();
-const rootEpic = combineEpics(...Object.values(epics));
 
 const persistedReducer = persistReducer(
   {
@@ -22,16 +18,16 @@ const persistedReducer = persistReducer(
   combineReducers({ ...reducers })
 );
 
-const composeEnhancers = process.env.NODE_ENV !== 'development'
+const composeEnhancers = isProduction
   ? compose
-  : (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   persistedReducer,
   composeEnhancers(applyMiddleware(epicMiddleware))
 );
 
-epicMiddleware.run(rootEpic);
+epicMiddleware.run(epics);
 
 const persistor = persistStore(store);
 

@@ -3,12 +3,12 @@ import classNames from 'classnames';
 
 import styles from './LoadingSpinner.module.scss';
 
-interface Props {
-  readonly className?: string;
+interface LoadingSpinnerProps {
+  readonly className: string;
   readonly color: string;
 }
 
-const LoadingSpinner = ({ className, color }: Props) => {
+const LoadingSpinner = ({ className, color }: LoadingSpinnerProps) => {
   return (
     <div
       className={classNames(styles.root, className, {

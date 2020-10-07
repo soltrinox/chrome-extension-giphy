@@ -6,7 +6,11 @@ import styles from './PoweredBy.module.scss';
 const PoweredBy = () => {
   return (
     <div className={styles.root}>
-      <img className={styles.image} alt="Powered by GIPHY" src={poweredByGiphy} />
+      <img
+        className={styles.image}
+        alt="Powered by GIPHY"
+        src={poweredByGiphy}
+      />
     </div>
   );
 };

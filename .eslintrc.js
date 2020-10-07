@@ -1,33 +1,86 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: './tsconfig.json'
-  },
-  plugins: ['@typescript-eslint', 'react-hooks'],
-  extends: ['airbnb', 'airbnb-typescript/base'],
+  extends: ['react-app', 'airbnb', 'prettier', 'prettier/react'],
+  plugins: ['@typescript-eslint', 'babel', 'prettier'],
   rules: {
-    'no-console': 0,
-    'comma-dangle': 0,
-    'react/jsx-filename-extension': 0,
-    'import/prefer-default-export': 0,
-    'import/no-extraneous-dependencies': 0,
-    'no-restricted-syntax': 0,
-    'arrow-body-style': 0,
-    'no-underscore-dangle': 0,
-    'react-hooks/rules-of-hooks': 2,
-    'react-hooks/exhaustive-deps': 1,
+    'no-unused-vars': 1,
+    'prettier/prettier': 2,
+    'consistent-return': 0,
+    'no-unused-expressions': 0,
+    'babel/no-unused-expressions': 2,
     'import/no-cycle': 0,
-    'camelcase': 0,
-    '@typescript-eslint/camelcase': 0
+    'no-console': 0,
+    'import/prefer-default-export': 0,
+    'func-names': 0,
+    'prefer-destructuring': 0,
+    'react/prop-types': 0,
+    'react/destructuring-assignment': 0,
+    'react/jsx-filename-extension': 0,
+    'react/jsx-props-no-spreading': 0,
+    'react/no-array-index-key': 1,
+    'no-use-before-define': 0,
+    '@typescript-eslint/no-use-before-define': 2,
+    'import/order': [
+      'error',
+      {
+        groups: [['builtin', 'external']],
+        'newlines-between': 'always'
+      }
+    ],
+    'spaced-comment': [
+      2,
+      'always',
+      {
+        markers: ['/']
+      }
+    ],
+    'import/no-extraneous-dependencies': [
+      2,
+      {
+        devDependencies: true
+      }
+    ],
+    'import/extensions': [
+      2,
+      'ignorePackages',
+      {
+        js: 'never',
+        tsx: 'never',
+        ts: 'never'
+      }
+    ],
+    'no-underscore-dangle': [
+      2,
+      {
+        allow: ['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']
+      }
+    ]
+  },
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true
+    }
+  },
+  env: {
+    browser: true,
+    node: true,
+    es6: true
   },
   settings: {
+    'import/extensions': ['.js', '.ts', '.tsx'],
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.js', '.ts', '.tsx']
+    },
     'import/resolver': {
       node: {
-        paths: 'src',
-        extensions: ['.js' ,'.ts', '.tsx']
+        extensions: ['.js', '.ts', '.tsx'],
+        paths: 'src'
       }
     },
+    'import/core-modules': ['history'],
     react: {
       version: 'detect'
     }

@@ -2,7 +2,7 @@
   position: absolute;
 }
 
-.spinner  {
+.spinner {
   position: absolute;
   top: 0;
   right: 0;
@@ -12,17 +12,17 @@
   border: 2px solid;
 
   :global {
-    animation: loading .5s infinite linear;
+    animation: loading 0.5s infinite linear;
   }
 
   .black & {
-    border-color: rgba(black, .25);
-    border-left-color: black;
+    border-color: rgba(#000, 0.25);
+    border-left-color: #000;
   }
 
   .white & {
-    border-color: rgba(white, .25);
-    border-left-color: white;
+    border-color: rgba(#fff, 0.25);
+    border-left-color: #fff;
   }
 
   &::after {

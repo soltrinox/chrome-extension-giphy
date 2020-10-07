@@ -19,24 +19,30 @@ const Form = () => {
     search: selectorQuery
   });
 
-  const onInputChange = useCallback(({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = target;
+  const onInputChange = useCallback(
+    ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = target;
 
-    setValues({
-      ...values,
-      [name]: value
-    });
-  }, [values]);
+      setValues({
+        ...values,
+        [name]: value
+      });
+    },
+    [values]
+  );
 
-  const onSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
-    const { search } = values;
+  const onSubmit = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      const { search } = values;
 
-    event.preventDefault();
-    refSearch?.current?.focus();
+      event.preventDefault();
+      refSearch?.current?.focus();
 
-    dispatch(setQuery(search));
-    dispatch(setTag(search));
-  }, [dispatch, values]);
+      dispatch(setQuery(search));
+      dispatch(setTag(search));
+    },
+    [dispatch, values]
+  );
 
   return (
     <header
@@ -56,11 +62,7 @@ const Form = () => {
           className={styles.search}
           placeholder="Search..."
         />
-        <button
-          type="submit"
-          aria-label="Submit"
-          className={styles.submit}
-        >
+        <button type="submit" aria-label="Submit" className={styles.submit}>
           <div className={styles.searchIcon}>
             <SearchIcon />
           </div>

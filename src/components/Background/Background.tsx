@@ -1,13 +1,12 @@
-import React, {
-  useEffect,
-  useState,
-  useCallback,
-  useMemo
-} from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { LoadingSpinner } from 'components';
-import { selectData, selectError, selectLoading as selectLoadingGiphy } from 'redux/giphy';
+import {
+  selectData,
+  selectError,
+  selectLoading as selectLoadingGiphy
+} from 'redux/giphy';
 import { selectQuery } from 'redux/search';
 import {
   setLoading as setLoadingBackground,
@@ -18,15 +17,20 @@ import styles from './Background.module.scss';
 const Background = () => {
   const dispatch = useDispatch();
   const selectorQuery = useSelector(selectQuery);
-  const selectorData = useSelector(selectData);
+  const { data: selectorData } = useSelector(selectData);
   const selectorError = useSelector(selectError);
   const selectorLoadingGiphy = useSelector(selectLoadingGiphy);
   const selectorLoadingBackground = useSelector(selectLoadingBackground);
   const [hasError, setHasError] = useState(false);
 
-  const { title, images } = selectorData;
+  const { title, images } = useMemo(
+    () => selectorData || { title: undefined, images: undefined },
+    [selectorData]
+  );
   const imageWebP = useMemo(() => images?.original.webp, [images]);
-  const nothingMatches = useMemo(() => Array.isArray(selectorData), [selectorData]);
+  const nothingMatches = useMemo(() => Array.isArray(selectorData), [
+    selectorData
+  ]);
 
   useEffect(() => {
     if (imageWebP) {
@@ -41,21 +45,14 @@ const Background = () => {
   }, [selectorError, dispatch, nothingMatches]);
 
   const renderHasError = useCallback(() => {
-    return (
-      <div>
-        Something went wrong, please try again...
-      </div>
-    );
+    return <div>Something went wrong, please try again...</div>;
   }, []);
 
   const renderNothingMatches = useCallback(() => {
     return (
       <div>
-        Nothing matches your search query -
-        {' '}
-        <span className={styles.nothingMatchesQuery}>
-          {selectorQuery}
-        </span>
+        Nothing matches your search query -{' '}
+        <span className={styles.nothingMatchesQuery}>{selectorQuery}</span>
       </div>
     );
   }, [selectorQuery]);
@@ -118,11 +115,7 @@ const Background = () => {
     renderLoadingSpinner
   ]);
 
-  return (
-    <section className={styles.root}>
-      {renderContent()}
-    </section>
-  );
+  return <section className={styles.root}>{renderContent()}</section>;
 };
 
 export default Background;
