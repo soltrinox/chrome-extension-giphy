@@ -7,9 +7,9 @@
 Recommended node version is defined in `.nvmrc`.
 
 - `yarn install` - Install packages
-- `yarn start` - Start development server on port *1234*
+- `yarn start` - Start development server on port _1234_
 - `yarn build` - Build project to the public folder
-- `yarn serve` - Serve the public folder on port *1337*
+- `yarn serve` - Serve the public folder on port _1337_
 - `yarn prettier:report` - Report any [Prettier](https://prettier.io/) issues
 - `yarn prettier:fix` - Fix any [Prettier](https://prettier.io/) issues
 - `yarn eslint:report` - Report any [ESLint](https://eslint.org/) issues
