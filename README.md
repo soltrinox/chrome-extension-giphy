@@ -16,6 +16,7 @@ Recommended node version is defined in `.nvmrc`.
 - `yarn eslint:fix` - Fix any [ESLint](https://eslint.org/) issues
 - `yarn stylelint:report` - Report any [stylelint](https://stylelint.io/) issues
 - `yarn stylelint:fix` - Fix any [stylelint](https://stylelint.io/) issues
+- `yarn typescript:report` - Report any TypeScript issues
 
 ## Environment variables
 
